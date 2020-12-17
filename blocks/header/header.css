@@ -1,9 +1,10 @@
 .header {
-  background-color: red;
+  margin: 0 auto;
+  max-width: 880px;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 425px) {
   .header {
-    background-color: blue;
+    padding: 0 27px;
   }
 }

@@ -1,0 +1,10 @@
+.header__border {
+  border-bottom: solid 1px #545454;
+  padding: 28px 0 32px 0;
+}
+
+@media screen and (min-width: 425px) {
+  .header__border {
+  padding: 45px 0 42px 0;
+  }
+}

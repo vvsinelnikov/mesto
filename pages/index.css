@@ -1,3 +1,8 @@
 @import "../vendor/normalize.css";
 @import "../fonts/inter/inter.css";
+@import "../blocks/page/page.css";
 @import "../blocks/header/header.css";
+@import "../blocks/header/__logo/header__logo.css";
+@import "../blocks/header/__border/header__border.css";
+@import "../blocks/footer/footer.css";
+@import "../blocks/footer/__copyright/footer__copyright.css";
