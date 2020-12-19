@@ -3,11 +3,13 @@
   background-size: cover;
   width: 24px;
   height: 24px;
-  border: none;
   margin-left: 10px;
+  transition: opacity .25s;
+  outline: none;
+  border: none;
 }
 
-@media screen and (min-width: 425px) {
-  .profile__edit-button {
-  }
+.profile__edit-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }

@@ -3,13 +3,24 @@
   line-height: 17px;
   text-align: center;
   margin: 14px 0 36px 0;
+  max-width: 282px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 620px) {
+  .profile__subline {
+    margin: 12px 0 0 0;
+  }
+}
+
+@media screen and (min-width: 820px) {
   .profile__subline {
     text-align: left;
     font-size: 18px;
     line-height: 22px;
-    margin: 16px 0 0 0;
+    margin: 12px 0 0 0;
+    max-width: 450px;
   }
 }

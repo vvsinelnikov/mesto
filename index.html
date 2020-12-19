@@ -23,19 +23,85 @@
             <section class="profile">
                 <div class="profile__info">
                     <img src="./blocks/profile/__avatar/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
-                    <div>
-                        <h1 class="profile__name">Жак-Ив Кусто</h1>
-                        <input type="button" class="profile__edit-button">
+                    <div class="profile__text-info">
+                        <div class="profile__name-block">
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <input type="button" class="profile__edit-button">
+                        </div>
                         <p class="profile__subline">Исследователь океана</p>
                     </div>
                 </div>
                 <input type="button" class="profile__add-button">
             </section>
 
+            <section class="album">
+                <ul class="album__list">
+                    <li class="card">
+                        <img src="./images/card/cairo.jpeg" alt="Каир" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Каир</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/card/alexandria.jpeg" alt="Александрия" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Александрия</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/card/aswain.jpeg" alt="Асуан" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Асуан</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/card/luxor.jpeg" alt="Луксор" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Луксор</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/card/sharm.jpeg" alt="Шарм-эш-Шейх" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Шарм-эш-Шейх</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                    <li class="card">
+                        <img src="./images/card/suez.jpeg" alt="Суэц" class="card__image">
+                        <div class="card__info">
+                            <h2 class="card__title">Суэц</h2>
+                            <input type="button" class="card__like-button">
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
+
+        <div class="popup">
+            <div class="popup__overlay"></div>
+            <div class="popup__body">
+                <h2 class="popup__heading">Редактировать профиль</h2>
+                <fieldset class="popup__fields">
+                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input">
+                    <input type="text" name="subline" value="Исследователь океана" class="popup__input">
+                    <input type="submit" name="subline" value="Сохранить" class="popup__submit-button">
+                </fieldset>
+                <input type="button" class="popup__close">
+            </div>
+        </div>
+        
     </div>
+
+    <script src="./blocks/popup/popup.js"></script> 
 </body>
 
 </html>

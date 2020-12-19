@@ -7,7 +7,7 @@
   margin: 42px auto 36px auto;
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 620px) {
   .profile {
     flex-direction: row;
     justify-content: space-between;  

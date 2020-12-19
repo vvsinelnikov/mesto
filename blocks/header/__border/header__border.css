@@ -3,7 +3,7 @@
   padding: 28px 0 32px 0;
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 620px) {
   .header__border {
   padding: 45px 0 42px 0;
   }
