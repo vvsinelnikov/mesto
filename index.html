@@ -8,7 +8,7 @@
     <meta name="keywords" content="Mesto Russia">
     <meta name="author" content="Владимир Синельников">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto Russia</title>
+    <title>Жак-Ив Кусто</title>
 </head>
 
 <body>
@@ -87,16 +87,16 @@
         </footer>
 
         <div class="popup">
-            <div class="popup__overlay"></div>
-            <div class="popup__body">
+            <div class="popup__container"></div>
+            <form class="popup__body">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <fieldset class="popup__fields">
-                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input">
-                    <input type="text" name="subline" value="Исследователь океана" class="popup__input">
+                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input" required>
+                    <input type="text" name="subline" value="Исследователь океана" class="popup__input" required>
                     <input type="submit" name="subline" value="Сохранить" class="popup__submit-button">
                 </fieldset>
                 <input type="button" class="popup__close">
-            </div>
+            </form>
         </div>
         
     </div>
