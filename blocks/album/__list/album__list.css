@@ -2,14 +2,9 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  gap: 20px 17px;
+  justify-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-}
-
-@media screen and (min-width: 620px) {
-  .album__list {
-    justify-content: flex-start;
-  }
 }

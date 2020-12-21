@@ -2,9 +2,10 @@
   color: #545454;
   font-size: 14px;
   line-height: 17px;
+  margin: 0;
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 620px) {
   .footer__copyright {
     font-size: 18px;
     line-height: 22px;

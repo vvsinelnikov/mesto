@@ -15,7 +15,7 @@
   }
 }
 
-@media screen and (min-width: 820px) {
+@media screen and (min-width: 620px) {
   .profile__subline {
     text-align: left;
     font-size: 18px;

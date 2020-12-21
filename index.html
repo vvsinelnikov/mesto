@@ -14,24 +14,22 @@
 <body>
     <div class="page">
         <header class="header">
-            <div class="header__border">
-                <div class="header__logo"></div>
-            </div>
+            <div class="header__logo"></div>
         </header>   
 
-        <main>
+        <main class="main">
             <section class="profile">
                 <div class="profile__info">
-                    <img src="./blocks/profile/__avatar/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <img src="./images/profile/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
                     <div class="profile__text-info">
                         <div class="profile__name-block">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
-                            <input type="button" class="profile__edit-button">
+                            <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
                         </div>
                         <p class="profile__subline">Исследователь океана</p>
                     </div>
                 </div>
-                <input type="button" class="profile__add-button">
+                <button type="button" class="profile__add-button" aria-label="Добавить"></button>
             </section>
 
             <section class="album">
@@ -40,42 +38,42 @@
                         <img src="./images/card/cairo.jpeg" alt="Каир" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Каир</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/card/alexandria.jpeg" alt="Александрия" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Александрия</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/card/aswain.jpeg" alt="Асуан" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Асуан</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/card/luxor.jpeg" alt="Луксор" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Луксор</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/card/sharm.jpeg" alt="Шарм-эш-Шейх" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Шарм-эш-Шейх</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/card/suez.jpeg" alt="Суэц" class="card__image">
                         <div class="card__info">
                             <h2 class="card__title">Суэц</h2>
-                            <input type="button" class="card__like-button">
+                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
                     </li>
                 </ul>
@@ -87,15 +85,14 @@
         </footer>
 
         <div class="popup">
-            <div class="popup__container"></div>
-            <form class="popup__body">
+            <form class="popup__container" name="popup-edit-profile">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <fieldset class="popup__fields">
-                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input" required>
-                    <input type="text" name="subline" value="Исследователь океана" class="popup__input" required>
-                    <input type="submit" name="subline" value="Сохранить" class="popup__submit-button">
+                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name" required placeholder="Имя">
+                    <input type="text" name="subline" value="Исследователь океана" class="popup__input popup__input_type_subline" required placeholder="Род занятий">
+                    <input type="submit" value="Сохранить" class="popup__submit-button">
                 </fieldset>
-                <input type="button" class="popup__close">
+                <button type="button" class="popup__close" aria-label="Закрыть"></button>
             </form>
         </div>
         

@@ -1,26 +1,7 @@
 .card {
   width: 282px;
-  height: 361px;
+  /* min-height: 361px; */
   background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
-  margin: 0 0 20px 0;
-}
-
-@media screen and (min-width: calc(19px * 2 + 282px * 2)) {
-  .card {
-    margin: 0 17px 20px 0;
-  }
-    .card:nth-child(2n) { 
-    margin: 0 0 20px 0;
-  }
-}
-
-@media screen and (min-width: calc(19px * 2 + 17px * 2 + 282px * 3)) {
-  .card:nth-child(2n) {
-    margin: 0 17px 20px 0;
-  }
-  .card:nth-child(3n) {
-    margin: 0 0 20px 0;
-  }
 }

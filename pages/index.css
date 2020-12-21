@@ -1,9 +1,9 @@
 @import "../vendor/normalize.css";
 @import "../fonts/inter/inter.css";
 @import "../blocks/page/page.css";
+@import "../blocks/main/main.css";
 @import "../blocks/header/header.css";
 @import "../blocks/header/__logo/header__logo.css";
-@import "../blocks/header/__border/header__border.css";
 @import "../blocks/profile/profile.css";
 @import "../blocks/profile/__info/profile__info.css";
 @import "../blocks/profile/__avatar/profile__avatar.css";
@@ -25,7 +25,6 @@
 @import "../blocks/popup/popup.css";
 @import "../blocks/popup/_opened/popup_opened.css";
 @import "../blocks/popup/__container/popup__container.css";
-@import "../blocks/popup/__body/popup__body.css";
 @import "../blocks/popup/__heading/popup__heading.css";
 @import "../blocks/popup/__fields/popup__fields.css";
 @import "../blocks/popup/__input/popup__input.css";
