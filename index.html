@@ -36,6 +36,7 @@
                 <ul class="album__list">
                     <li class="card">
                         <img src="./images/card/cairo.jpeg" alt="Каир" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Каир</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -43,6 +44,7 @@
                     </li>
                     <li class="card">
                         <img src="./images/card/alexandria.jpeg" alt="Александрия" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Александрия</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -50,6 +52,7 @@
                     </li>
                     <li class="card">
                         <img src="./images/card/aswain.jpeg" alt="Асуан" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Асуан</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -57,6 +60,7 @@
                     </li>
                     <li class="card">
                         <img src="./images/card/luxor.jpeg" alt="Луксор" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Луксор</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -64,6 +68,7 @@
                     </li>
                     <li class="card">
                         <img src="./images/card/sharm.jpeg" alt="Шарм-эш-Шейх" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Шарм-эш-Шейх</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -71,6 +76,7 @@
                     </li>
                     <li class="card">
                         <img src="./images/card/suez.jpeg" alt="Суэц" class="card__image">
+                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
                             <h2 class="card__title">Суэц</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -95,9 +101,22 @@
                 <button type="button" class="popup__close" aria-label="Закрыть"></button>
             </form>
         </div>
-        
+
+        <template id="zoom-template">
+            <div class="zoom">
+                <div class="zoom__container">
+                    <img src="" alt="" class="zoom__image">
+                    <h3 class="zoom__text">Карачаево-Черкессия</h3>
+                    <button type="button" class="popup__close zoom__close" aria-label="Закрыть"></button>
+                </div>
+            </div>
+        </template>
+
     </div>
 
+    <script src="./blocks/card/__trash-button/card__trash-button.js"></script> 
+    <script src="./blocks/card/__image/card__image.js"></script> 
+    <script src="./blocks/card/__like-button/card__like-button.js"></script> 
     <script src="./blocks/popup/popup.js"></script> 
 </body>
 

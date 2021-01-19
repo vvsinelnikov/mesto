@@ -13,8 +13,3 @@
   opacity: 0.5;
   cursor: pointer;
 }
-
-.card__like-button:active {
-  cursor: pointer;
-  background: url('../../../images/heart_hover.svg');
-}

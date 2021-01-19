@@ -17,9 +17,11 @@
 @import "../blocks/album/__list/album__list.css";
 @import "../blocks/card/card.css";
 @import "../blocks/card/__image/card__image.css";
+@import "../blocks/card/__trash-button/card__trash-button.css";
 @import "../blocks/card/__info/card__info.css";
 @import "../blocks/card/__title/card__title.css";
 @import "../blocks/card/__like-button/card__like-button.css";
+@import "../blocks/card/__like-button/_liked/card__like-button_liked.css";
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";
 @import "../blocks/popup/popup.css";
@@ -30,3 +32,8 @@
 @import "../blocks/popup/__input/popup__input.css";
 @import "../blocks/popup/__submit-button/popup__submit-button.css";
 @import "../blocks/popup/__close/popup__close.css";
+@import "../blocks/zoom/zoom.css";
+@import "../blocks/zoom/__container/zoom__container.css";
+@import "../blocks/zoom/__image/zoom__image.css";
+@import "../blocks/zoom/__text/zoom__text.css";
+@import "../blocks/zoom/__close/zoom__close.css";

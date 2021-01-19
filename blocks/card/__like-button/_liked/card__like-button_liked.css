@@ -1,0 +1,4 @@
+.card__like-button_liked {
+  cursor: pointer;
+  background: url('../../../../images/heart_hover.svg');
+}
