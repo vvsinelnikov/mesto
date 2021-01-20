@@ -34,54 +34,7 @@
 
             <section class="album">
                 <ul class="album__list">
-                    <!-- <li class="card">
-                        <img src="./images/card/cairo.jpeg" alt="Каир" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Каир</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/card/alexandria.jpeg" alt="Александрия" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Александрия</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/card/aswain.jpeg" alt="Асуан" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Асуан</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/card/luxor.jpeg" alt="Луксор" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Луксор</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/card/sharm.jpeg" alt="Шарм-эш-Шейх" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Шарм-эш-Шейх</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/card/suez.jpeg" alt="Суэц" class="card__image">
-                        <button type="button" class="card__trash-button" aria-label="Удалить"></button>
-                        <div class="card__info">
-                            <h2 class="card__title">Суэц</h2>
-                            <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
-                        </div>
-                    </li> -->
+                
                 </ul>
             </section>
         </main>
@@ -91,7 +44,7 @@
         </footer>
 
         <div class="popup" id="edit-profile-popup">
-            <form class="popup__container" name="edit-profile-form" id="edit-profile-form">
+            <form class="popup__container popup__container_form" name="edit-profile-form" id="edit-profile-form">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <fieldset class="popup__fields">
                     <input type="text" name="profile-name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name" required placeholder="Имя">
@@ -103,7 +56,7 @@
         </div>
 
         <div class="popup" id="new-place-popup">
-            <form class="popup__container" name="new-place-form" id="new-place-form">
+            <form class="popup__container popup__container_form" name="new-place-form" id="new-place-form">
                 <h2 class="popup__heading">Новое место</h2>
                 <fieldset class="popup__fields">
                     <input type="text" name="place-name" class="popup__input popup__input_type_name" required placeholder="Название">
@@ -114,15 +67,13 @@
             </form>
         </div>
 
-        <template id="zoom-template">
-            <div class="zoom">
-                <div class="zoom__container">
-                    <img src="шаблон" alt="шаблон" class="zoom__image">
-                    <h3 class="zoom__text"></h3>
-                    <button type="button" class="popup__close zoom__close" aria-label="Закрыть"></button>
-                </div>
+        <div class="popup popup_zoom">
+            <div class="popup__container">
+                <img src="http://" alt="шаблон" class="popup__image">
+                <h3 class="popup__text"></h3>
+                <button type="button" class="popup__close" aria-label="Закрыть"></button>
             </div>
-        </template>
+        </div>
 
         <template id="card-template">
             <li class="card">
@@ -136,10 +87,8 @@
         </template>
     </div>
 
-    <script src="./blocks/card/__trash-button/card__trash-button.js"></script> 
-    <script src="./blocks/card/__image/card__image.js"></script> 
-    <script src="./blocks/card/__like-button/card__like-button.js"></script> 
-    <script src="./blocks/popup/popup.js"></script> 
+    <script src="./scripts/scripts.js"></script>     
+    
 </body>
 
 </html>
