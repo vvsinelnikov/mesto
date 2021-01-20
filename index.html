@@ -34,7 +34,7 @@
 
             <section class="album">
                 <ul class="album__list">
-                    <li class="card">
+                    <!-- <li class="card">
                         <img src="./images/card/cairo.jpeg" alt="Каир" class="card__image">
                         <button type="button" class="card__trash-button" aria-label="Удалить"></button>
                         <div class="card__info">
@@ -81,7 +81,7 @@
                             <h2 class="card__title">Суэц</h2>
                             <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </section>
         </main>
@@ -90,15 +90,27 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
-            <form class="popup__container" name="popup-edit-profile">
+        <div class="popup" id="edit-profile-popup">
+            <form class="popup__container" name="edit-profile-form" id="edit-profile-form">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <fieldset class="popup__fields">
-                    <input type="text" name="name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name" required placeholder="Имя">
-                    <input type="text" name="subline" value="Исследователь океана" class="popup__input popup__input_type_subline" required placeholder="Род занятий">
+                    <input type="text" name="profile-name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name" required placeholder="Имя">
+                    <input type="text" name="profile-subline" value="Исследователь океана" class="popup__input popup__input_type_subline" required placeholder="Род занятий">
                     <input type="submit" value="Сохранить" class="popup__submit-button">
                 </fieldset>
                 <button type="button" class="popup__close" aria-label="Закрыть"></button>
+            </form>
+        </div>
+
+        <div class="popup" id="new-place-popup">
+            <form class="popup__container" name="new-place-form" id="new-place-form">
+                <h2 class="popup__heading">Новое место</h2>
+                <fieldset class="popup__fields">
+                    <input type="text" name="place-name" class="popup__input popup__input_type_name" required placeholder="Название">
+                    <input type="text" name="place-link" class="popup__input popup__input_type_subline" required placeholder="Ссылка на картинку">
+                    <input type="submit" value="Сохранить" class="popup__submit-button">
+                </fieldset>
+                <button type="button" class="popup__close" aria-label="Создать"></button>
             </form>
         </div>
 
@@ -106,12 +118,22 @@
             <div class="zoom">
                 <div class="zoom__container">
                     <img src="" alt="" class="zoom__image">
-                    <h3 class="zoom__text">Карачаево-Черкессия</h3>
+                    <h3 class="zoom__text"></h3>
                     <button type="button" class="popup__close zoom__close" aria-label="Закрыть"></button>
                 </div>
             </div>
         </template>
 
+        <template id="card-template">
+            <li class="card">
+                <img src="" alt="" class="card__image">
+                <button type="button" class="card__trash-button" aria-label="Удалить"></button>
+                <div class="card__info">
+                    <h2 class="card__title"></h2>
+                    <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
+                </div>
+            </li>
+        </template>
     </div>
 
     <script src="./blocks/card/__trash-button/card__trash-button.js"></script> 

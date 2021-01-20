@@ -1,4 +1,3 @@
-const likeButton = document.querySelectorAll('.card__like-button');
 const liked = []; // объект с лайками карточек
 
 function checkLikes() {
@@ -9,10 +8,9 @@ function checkLikes() {
     else {
         liked[cardName] = false;
     }
-    // console.log(this.previousElementSibling.textContent + ' ' + liked[this.previousElementSibling.textContent]);
     this.classList.toggle('card__like-button_liked');
 };
 
-likeButton.forEach(function(cardNumber) {
-    cardNumber.addEventListener('click', checkLikes )
-});
+// этот код нужен только для карточек, прописанных в html
+// const likeButton = document.querySelectorAll('.card__like-button');
+// likeButton.forEach((cardNumber) => cardNumber.addEventListener('click', checkLikes));
