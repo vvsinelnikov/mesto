@@ -54,8 +54,9 @@ function editProfileFormSubmit(evt) {
   closePopup(editProfilePopup);
 }
 
-function CreateCard(place, url) {
-  const cardContent = cardTemplate.cloneNode(true);
+let cardContent;
+function createCard(place, url) {
+  cardContent = cardTemplate.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
   const cardLikeButton = cardContent.querySelector('.card__like-button');
   cardImage.src = url;
@@ -65,7 +66,6 @@ function CreateCard(place, url) {
   cardLikeButton.id = place;
   cardLikeButton.addEventListener('click', checkLikes);
   cardContent.querySelector('.card__trash-button').addEventListener('click', function() {this.closest('li').remove();})
-  addCard(url, cardContent);
 }
 
 function addCard(url, cardContent) {
@@ -83,7 +83,8 @@ editProfileForm.addEventListener('submit', editProfileFormSubmit);
 
 newPlaceForm.addEventListener('submit', function(evt) {
   evt.preventDefault();
-  CreateCard(placeInput.value, urlInput.value);
+  createCard(placeInput.value, urlInput.value);
+  addCard(urlInput.value, cardContent);
 });
 
 const initialCards = [
@@ -113,7 +114,10 @@ const initialCards = [
     }
   ];
 
-  initialCards.forEach((card) => CreateCard(card.name, card.link));
+  initialCards.forEach((card) => {
+    createCard(card.name, card.link);
+    addCard(card.link, cardContent);
+  });
 
   zoomPopup.querySelector('.popup__image').addEventListener('click', zoomImage);
 
