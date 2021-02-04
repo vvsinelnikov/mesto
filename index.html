@@ -47,9 +47,11 @@
             <form class="popup__container popup__container_form" name="edit-profile-form" id="edit-profile-form">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <fieldset class="popup__fields">
-                    <input type="text" name="profile-name" value="Жак-Ив Кусто" class="popup__input popup__input_type_name" required placeholder="Имя">
-                    <input type="text" name="profile-subline" value="Исследователь океана" class="popup__input popup__input_type_subline" required placeholder="Род занятий">
-                    <input type="submit" value="Сохранить" class="popup__submit-button">
+                    <input type="text" class="popup__input" id="profile-name" name="input-name" value="Жак-Ив Кусто" required minlength="2" maxlength="40" placeholder="Имя">
+                    <span class="popup__error" id="profile-name-error"></span>
+                    <input type="text" class="popup__input" id="profile-subline" name="input-subline" value="Исследователь океана" required minlength="2" maxlength="200" placeholder="Род занятий">
+                    <span class="popup__error" id="profile-subline-error"></span>
+                    <input type="submit" class="popup__submit-button" value="Сохранить">
                 </fieldset>
                 <button type="button" class="popup__close" aria-label="Закрыть"></button>
             </form>
@@ -59,15 +61,17 @@
             <form class="popup__container popup__container_form" name="new-place-form" id="new-place-form">
                 <h2 class="popup__heading">Новое место</h2>
                 <fieldset class="popup__fields">
-                    <input type="text" name="place-name" class="popup__input popup__input_type_name" required placeholder="Название">
-                    <input type="text" name="place-link" class="popup__input popup__input_type_subline" required placeholder="Ссылка на картинку">
-                    <input type="submit" value="Сохранить" class="popup__submit-button">
+                    <input type="text" class="popup__input" id="place-name" name="place-name" required minlength="2" maxlength="30" placeholder="Название">
+                    <span class="popup__error" id="place-name-error"></span>
+                    <input type="url" class="popup__input" id="place-link" name="place-link" required placeholder="Ссылка на картинку">
+                    <span class="popup__error" id="place-link-error"></span>
+                    <input type="submit" class="popup__submit-button" value="Сохранить">
                 </fieldset>
                 <button type="button" class="popup__close" aria-label="Создать"></button>
             </form>
         </div>
 
-        <div class="popup popup_zoom">
+        <div class="popup" id="zoom-popup">
             <div class="popup__container">
                 <img src="http://" alt="шаблон" class="popup__image">
                 <h3 class="popup__text"></h3>
@@ -87,8 +91,10 @@
         </template>
     </div>
 
+    <script src="./scripts/validate.js"></script> 
     <script src="./scripts/scripts.js"></script>     
-    
+        
+
 </body>
 
 </html>
