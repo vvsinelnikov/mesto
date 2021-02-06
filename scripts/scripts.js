@@ -73,7 +73,7 @@ function addCard(url, cardContent) {
     let img = new Image();
     img.src = url;
     img.onerror = function () {
-      // совершенно непонятно, как удалять через cardContent -(
+      // onerror работает только после публикации фрагмента в DOM и обработки браузером. Непонятно, как проверять, не публикуя
       document.querySelector(".card").remove();
       alert("Файл не найден");
     };
@@ -146,9 +146,20 @@ let currentPopup = editProfilePopup; // текущий открытый попа
 
 function openPopup() {
   currentPopup.classList.add("popup_opened");
-  validatePopup();
+  // validatePopup();
   document.addEventListener("keydown", closeByEsc); // закрытие по Esc
   currentPopup.addEventListener("click", closeByClick); // Закрытие по клику на фон
+  enableValidation({
+    formSelector: ".popup__fields",
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__submit-button",
+    inactiveButtonClass: "popup__submit-button_inactive",
+    errorClass: "popup__input_error",
+    currentName: nameField.textContent,
+    currentJob: sublineField.textContent,
+    enteredName: nameInput,
+    enteredJob: jobInput,
+  });
 }
 
 function closePopup() {
@@ -169,13 +180,10 @@ function closeByClick(evt) {
   }
 }
 
-// *** Добавление слушателей ***
-function addListeners(...args) {
-  const popupList = [...args];
-  popupList.forEach((item) => {
-    item.addEventListener("input", validatePopup);
-    item.querySelector(".popup__close").addEventListener("click", closePopup); // закрытие по крестику
+function handleCloseButton() {
+  Array.from(document.querySelectorAll(".popup__close")).forEach((button) => {
+    button.addEventListener("click", closePopup);
   });
 }
 
-addListeners(editProfilePopup, newCardPopup, zoomPopup); // назначаем слушателей
+handleCloseButton();
