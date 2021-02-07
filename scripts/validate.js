@@ -4,95 +4,98 @@ function enableValidation({
   submitButtonSelector,
   inactiveButtonClass,
   errorClass,
-  // для проверки изменения имени (самодеятельность)
-  currentName,
-  currentJob,
-  enteredName,
-  enteredJob,
 }) {
-  const isValid = (formElement, inputElement) => {
-    if (!inputElement.validity.valid) {
-      showInputError(formElement, inputElement, inputElement.validationMessage);
-    } else {
-      hideInputError(formElement, inputElement);
-    }
-  };
-
-  const showInputError = (formElement, inputElement, errorMessage) => {
-    inputElement.classList.add(errorClass);
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    errorElement.textContent = errorMessage;
-  };
-
-  const hideInputError = (formElement, inputElement) => {
-    inputElement.classList.remove(errorClass);
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    errorElement.textContent = "";
-  };
-
-  const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", () => {
-        isValid(formElement, inputElement);
-        runCheckSubmit();
-      });
-    });
-
-    function runCheckSubmit() {
-      checkSubmitButton({
-        formElement,
-        inputSelector,
-        submitButtonSelector,
-        inactiveButtonClass,
-        currentName,
-        currentJob,
-        enteredName,
-        enteredJob,
-      });
-    }
-    // задать состояние кнопки при открытии попапа
-    runCheckSubmit();
-  };
-
   const formList = Array.from(document.querySelectorAll(formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
+    formElement.addEventListener("submit", (evt) => evt.preventDefault());
+    setEventListeners(
+      formElement,
+      inputSelector,
+      submitButtonSelector,
+      inactiveButtonClass,
+      errorClass
+    );
+    Array.from(formElement.querySelectorAll(inputSelector)).forEach(
+      (inputElement) => {
+        checkSubmitButton(
+          formElement,
+          inputSelector,
+          submitButtonSelector,
+          inactiveButtonClass
+        );
+        hideInputError(inputElement, errorClass);
+      }
+    );
   });
 }
 
-// *** Проверка активности кнопки сохранения ***
-const checkSubmitButton = ({
+const setEventListeners = (
   formElement,
   inputSelector,
   submitButtonSelector,
   inactiveButtonClass,
-  currentName,
-  currentJob,
-  enteredName,
-  enteredJob,
-}) => {
-  const submitButton = formElement.querySelector(submitButtonSelector);
-
-  function checkCurrentState(cName, eName, cJob, eJob) {
-    if (cName === eName && cJob === eJob) {
-      return true;
-    } else {
-      return false;
+  errorClass
+) => {
+  Array.from(formElement.querySelectorAll(inputSelector)).forEach(
+    (inputElement) => {
+      inputElement.addEventListener("input", () =>
+        isValid(
+          formElement,
+          inputSelector,
+          inputElement,
+          submitButtonSelector,
+          inactiveButtonClass,
+          errorClass,
+          inputSelector
+        )
+      );
     }
+  );
+};
+
+const isValid = (
+  formElement,
+  inputSelector,
+  inputElement,
+  submitButtonSelector,
+  inactiveButtonClass,
+  errorClass
+) => {
+  if (!inputElement.validity.valid) {
+    showInputError(inputElement, errorClass);
+  } else {
+    hideInputError(inputElement, errorClass);
   }
+  checkSubmitButton(
+    formElement,
+    inputSelector,
+    submitButtonSelector,
+    inactiveButtonClass
+  );
+};
+
+const showInputError = (inputElement, errorClass) => {
+  inputElement.classList.add(errorClass);
+  const errorElement = document.querySelector(`#${inputElement.id}-error`);
+  errorElement.textContent = inputElement.validationMessage;
+};
+
+const hideInputError = (inputElement, errorClass) => {
+  inputElement.classList.remove(errorClass);
+  const errorElement = document.querySelector(`#${inputElement.id}-error`);
+  errorElement.textContent = "";
+};
+
+const checkSubmitButton = (
+  formElement,
+  inputSelector,
+  submitButtonSelector,
+  inactiveButtonClass
+) => {
+  const submitButton = formElement.querySelector(submitButtonSelector);
   if (
     !Array.from(formElement.querySelectorAll(inputSelector)).every(
       (element) => element.validity.valid
-    ) ||
-    checkCurrentState(
-      currentName,
-      enteredName.value,
-      currentJob,
-      enteredJob.value
     )
   ) {
     submitButton.setAttribute("disabled", true);
