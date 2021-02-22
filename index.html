@@ -53,7 +53,7 @@
                     <span class="popup__error" id="profile-subline-error"></span>
                     <input type="submit" class="popup__submit-button" value="Сохранить">
                 </fieldset>
-                <button type="button" class="popup__close" aria-label="Закрыть"></button>
+                <button type="button" class="popup__close" id="profile-close-button" aria-label="Закрыть"></button>
             </form>
         </div>
 
@@ -67,7 +67,7 @@
                     <span class="popup__error" id="place-link-error"></span>
                     <input type="submit" class="popup__submit-button" value="Сохранить">
                 </fieldset>
-                <button type="button" class="popup__close" aria-label="Создать"></button>
+                <button type="button" class="popup__close" id="place-close-button" aria-label="Создать"></button>
             </form>
         </div>
 
@@ -75,14 +75,14 @@
             <div class="popup__container">
                 <img src="http://" alt="шаблон" class="popup__image">
                 <h3 class="popup__text"></h3>
-                <button type="button" class="popup__close" aria-label="Закрыть"></button>
+                <button type="button" class="popup__close" id="zoom-close-button" aria-label="Закрыть"></button>
             </div>
         </div>
 
         <template id="card-template">
             <li class="card">
                 <img src="шаблон" alt="шаблон" class="card__image">
-                <button type="button" class="card__trash-button" aria-label="Удалить"></button>
+                <button type="button" class="card__delete-button" aria-label="Удалить"></button>
                 <div class="card__info">
                     <h2 class="card__title"></h2>
                     <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
@@ -91,9 +91,7 @@
         </template>
     </div>
 
-    <script src="./scripts/validate.js"></script> 
-    <script src="./scripts/scripts.js"></script>     
-        
+    <script type="module" src="./scripts/scripts.js"></script>       
 
 </body>
 

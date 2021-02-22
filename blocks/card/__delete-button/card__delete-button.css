@@ -1,4 +1,4 @@
-.card__trash-button {
+.card__delete-button {
   background: url('../../../images/trash.svg');
   background-size: cover;
   width: 18px;
@@ -11,7 +11,7 @@
   outline: none;
 }
 
-.card__trash-button:hover {
+.card__delete-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
