@@ -1,15 +1,9 @@
 export default class FormValidator {
   constructor(
-    {
-      formSelector,
-      inputSelector,
-      submitButtonSelector,
-      inactiveButtonClass,
-      errorClass,
-    },
+    { inputSelector, submitButtonSelector, inactiveButtonClass, errorClass },
     formElement
   ) {
-    this._formElement = document.querySelector(formSelector);
+    this._formElement = formElement;
     this._inputSelector = inputSelector;
     this._submitButton = formElement.querySelector(submitButtonSelector);
     this._inactiveButtonClass = inactiveButtonClass;
@@ -17,14 +11,13 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    Array.from(this._formElement.querySelectorAll(this._inputSelector)).forEach(
-      (inputElement) => {
-        inputElement.addEventListener("input", () =>
-          this._isValid(inputElement)
-        );
-      }
+    this._inputsList = Array.from(
+      this._formElement.querySelectorAll(this._inputSelector)
     );
-    this._checkSubmitButton();
+    this._inputsList.forEach((inputElement) => {
+      inputElement.addEventListener("input", () => this._isValid(inputElement));
+    });
+    this.checkSubmitButton();
   }
 
   _isValid(inputElement) {
@@ -33,7 +26,7 @@ export default class FormValidator {
     } else {
       this._hideInputError(inputElement);
     }
-    this._checkSubmitButton();
+    this.checkSubmitButton();
   }
 
   _showInputError(inputElement) {
@@ -48,17 +41,18 @@ export default class FormValidator {
     errorElement.textContent = "";
   }
 
-  _checkSubmitButton() {
-    if (
-      !Array.from(
-        this._formElement.querySelectorAll(this._inputSelector)
-      ).every((element) => element.validity.valid)
-    ) {
+  checkSubmitButton() {
+    if (!this._inputsList.every((element) => element.validity.valid)) {
       this._submitButton.setAttribute("disabled", true);
       this._submitButton.classList.add(this._inactiveButtonClass);
     } else {
       this._submitButton.removeAttribute("disabled");
       this._submitButton.classList.remove(this._inactiveButtonClass);
     }
+  }
+
+  clearValidation() {
+    this._inputsList.forEach((element) => this._hideInputError(element));
+    this.checkSubmitButton();
   }
 }
