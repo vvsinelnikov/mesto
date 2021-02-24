@@ -17,7 +17,6 @@ editProfileButton.addEventListener("click", () => {
   jobInput.value = sublineField.textContent;
   openPopup(editProfilePopup);
   editProfileFormValid.clearValidation();
-  editProfileFormValid.checkSubmitButton();
 });
 
 editProfileForm.addEventListener("submit", (evt) => {
@@ -46,7 +45,6 @@ addCardButton.addEventListener("click", function () {
   urlInput.value = "";
   openPopup(newCardPopup);
   newPlaceFormValid.clearValidation();
-  newPlaceFormValid.checkSubmitButton();
 });
 
 const placeCloseButton = newCardPopup.querySelector("#place-close-button");
@@ -56,13 +54,9 @@ placeCloseButton.addEventListener("click", () => {
 
 newPlaceForm.addEventListener("submit", function (evt) {
   evt.preventDefault();
-  const card = new Card(
-    { name: placeInput.value, link: urlInput.value },
-    "#card-template",
-    openImagePopup
-  );
-  const cardElement = card.generateCard();
-  document.querySelector(".album__list").prepend(cardElement);
+  document
+    .querySelector(".album__list")
+    .prepend(generateCard({ name: placeInput.value, link: urlInput.value }));
   closePopup(newCardPopup);
 });
 
@@ -113,37 +107,18 @@ function openImagePopup(name, link) {
   openPopup(zoomPopup);
 }
 
-function enableValidation(form) {
-  const valid = new FormValidator(
-    {
-      inputSelector: ".popup__input",
-      submitButtonSelector: ".popup__submit-button",
-      inactiveButtonClass: "popup__submit-button_inactive",
-      errorClass: "popup__input_error",
-    },
-    form
-  );
-  valid.enableValidation();
-}
+const validationSettings = {
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__submit-button",
+  inactiveButtonClass: "popup__submit-button_inactive",
+  errorClass: "popup__input_error",
+};
 
 const editProfileFormValid = new FormValidator(
-  {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    errorClass: "popup__input_error",
-  },
+  validationSettings,
   editProfileForm
 );
 editProfileFormValid.enableValidation();
 
-const newPlaceFormValid = new FormValidator(
-  {
-    inputSelector: ".popup__input",
-    submitButtonSelector: ".popup__submit-button",
-    inactiveButtonClass: "popup__submit-button_inactive",
-    errorClass: "popup__input_error",
-  },
-  newPlaceForm
-);
+const newPlaceFormValid = new FormValidator(validationSettings, newPlaceForm);
 newPlaceFormValid.enableValidation();

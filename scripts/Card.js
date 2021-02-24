@@ -28,7 +28,7 @@ export default class Card {
 
     // *** проверка ссылки (самодеятельность) ***
     // onerror срабатывает только после публикации в DOM :(
-    let img = new Image();
+    const img = new Image();
     img.src = this._link;
     img.onerror = function () {
       document.querySelector(".card").remove();
