@@ -4,20 +4,22 @@ export default class PopupWithForm extends Popup {
   constructor(selector, submiter) {
     super(selector);
     this._submiter = submiter;
+    this._placeInput = document.querySelector("#place-name"); // введенное название
+    this._urlInput = document.querySelector("#place-link"); // введенный URL
+    this._formElement = this._popup.querySelector(".popup__container_form");
   }
 
-  close() {
-    super.close();
-    const nameInput = document.querySelector("#profile-name"); // введенное имя
-    const jobInput = document.querySelector("#profile-subline"); // введенный род занятий
-    const nameField = document.querySelector(".profile__name"); // текущее имя
-    const sublineField = document.querySelector(".profile__subline"); // текущий род занятий
-    nameInput.value = nameField.textContent;
-    jobInput.value = sublineField.textContent;
-    const placeInput = document.querySelector("#place-name"); // введенное название
-    const urlInput = document.querySelector("#place-link"); // введенный URL
-    placeInput.value = "";
-    urlInput.value = "";
+  close(a) {
+    this._formElement.reset();
+    // const nameInput = document.querySelector("#profile-name"); // введенное имя
+    // const jobInput = document.querySelector("#profile-subline"); // введенный род занятий
+    // const nameField = document.querySelector(".profile__name"); // текущее имя
+    // const sublineField = document.querySelector(".profile__subline"); // текущий род занятий
+    // nameInput.value = nameField.textContent;
+    // jobInput.value = sublineField.textContent;
+    // this._placeInput.value = "";
+    // this._urlInput.value = "";
+    super.close(a);
   }
 
   _getInputValues() {
@@ -28,9 +30,9 @@ export default class PopupWithForm extends Popup {
     });
   }
 
-  _setEventListeners() {
-    super._setEventListeners();
-    this._popup.addEventListener("submit", (evt) => {
+  setEventListeners() {
+    super.setEventListeners();
+    this._formElement.addEventListener("submit", (evt) => {
       this._getInputValues();
       this._submiter(evt, this._formValues);
     });

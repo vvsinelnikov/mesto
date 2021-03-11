@@ -21,28 +21,34 @@ const editProfile = new PopupWithForm("#edit-profile-popup", (evt, inputs) => {
   document.title = inputs['input-name'];
   editProfile.close();
 });
+editProfile.setEventListeners();
 editProfileButton.addEventListener("click", () => {
-  nameInput.value = currentProfile.getUserInfo().name;
-  jobInput.value = currentProfile.getUserInfo().info;
+  const userData = currentProfile.getUserInfo();
+  // nameInput.value = userData.name;
+  // jobInput.value = userData.info;
   editProfile.open();
   editProfileFormValid.clearValidation();
 });
 
+function createCard(item) {
+  const card = new Card(item, "#card-template", (name, link) => {
+    popupWithImage.open(name, link);
+  });
+  return card.generateCard();
+} 
+
+// Попап с фото
+const popupWithImage = new PopupWithImage("#zoom-popup");
+popupWithImage.setEventListeners();
+
 // Добавление карточек
 const addCard = new PopupWithForm("#new-place-popup", (evt, inputs) => {
   evt.preventDefault();
-  const newCard = new Section({items: [{ name: inputs['place-name'], link: inputs['place-link'] }], renderer: (item) => {
-    const card = new Card(item, "#card-template", (name, link) => {
-      const popupWithImage = new PopupWithImage("#zoom-popup");
-      popupWithImage.open(name, link);
-    });
-    const cardElement = card.generateCard();
-    newCard.addItem(cardElement)
-    }
-  }, '.album__list');  
-  newCard.renderElements();
+  const cardElement = createCard({name: inputs['place-name'], link: inputs['place-link']});
+  initialCardsList.addItem(cardElement)
   addCard.close();
 });
+addCard.setEventListeners();
 addCardButton.addEventListener("click", function () {
   addCard.open();
   newPlaceFormValid.clearValidation();
@@ -50,11 +56,7 @@ addCardButton.addEventListener("click", function () {
 
 // Первые 6 карточек
 const initialCardsList = new Section({items: initialCards, renderer: (item) => {
-  const card = new Card(item, "#card-template", (name, link) => {
-    const popupWithImage = new PopupWithImage("#zoom-popup");
-    popupWithImage.open(name, link);
-  });
-  const cardElement = card.generateCard();
+  const cardElement = createCard(item);
   initialCardsList.addItem(cardElement)
   }
 }, '.album__list');

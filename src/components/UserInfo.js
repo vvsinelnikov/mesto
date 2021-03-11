@@ -6,14 +6,12 @@ export default class UserInfo {
 
   getUserInfo() {
     const userInfo = {};
-    userInfo['name'] = this._name;
-    userInfo['info'] = this._info;
+    userInfo['name'] = userInfo['name'] = this._nameElement.textContent;
+    userInfo['info'] = userInfo['info'] = this._infoElement.textContent;
     return userInfo;
   }
 
   setUserInfo(newName, newInfo) {
-    this._name = newName;
-    this._info = newInfo;
     this._nameElement.textContent = newName;
     this._infoElement.textContent = newInfo;
   }
