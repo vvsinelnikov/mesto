@@ -7,7 +7,7 @@
     <meta name="description" content="Mesto: интерактивный фотоальбом">
     <meta name="keywords" content="Mesto Russia">
     <meta name="author" content="Владимир Синельников">
-    <link rel="stylesheet" href="./pages/index.css">
+    <!-- <link rel="stylesheet" href="./pages/index.css"> -->
     <title>Жак-Ив Кусто</title>
 </head>
 
@@ -20,7 +20,8 @@
         <main class="main">
             <section class="profile">
                 <div class="profile__info">
-                    <img src="./images/profile/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <img src="<%=require('./images/profile/avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
+                    <!-- <img src="./images/profile/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar"> -->
                     <div class="profile__text-info">
                         <div class="profile__name-block">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -91,9 +92,7 @@
         </template>
     </div>
 
-    <script type="module" src="./scripts/scripts.js"></script> 
-    <script src="./scripts/initial-сards.js"></script>       
-
+    <!-- <script type="module" src="./scripts/scripts.js"></script>  -->
 </body>
 
 </html>
