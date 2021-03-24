@@ -20,14 +20,14 @@
         <main class="main">
             <section class="profile">
                 <div class="profile__info">
-                    <img src="<%=require('./images/profile/avatar.jpg')%>" alt="Жак-Ив Кусто" class="profile__avatar">
-                    <!-- <img src="./images/profile/avatar.jpg" alt="Жак-Ив Кусто" class="profile__avatar"> -->
+                    <img src="<%=require('./images/profile/avatar.jpg')%>" alt="Аватар" class="profile__avatar">
+                    <span class="profile__edit-avatar"></span>
                     <div class="profile__text-info">
                         <div class="profile__name-block">
-                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <h1 class="profile__name"></h1>
                             <button type="button" class="profile__edit-button" aria-label="Редактировать профиль"></button>
                         </div>
-                        <p class="profile__subline">Исследователь океана</p>
+                        <p class="profile__subline"></p>
                     </div>
                 </div>
                 <button type="button" class="profile__add-button" aria-label="Добавить"></button>
@@ -41,7 +41,7 @@
         </main>
 
         <footer class="footer">
-            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+            <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
         </footer>
 
         <div class="popup" id="edit-profile-popup">
@@ -68,7 +68,7 @@
                     <span class="popup__error" id="place-link-error"></span>
                     <input type="submit" class="popup__submit-button" value="Сохранить">
                 </fieldset>
-                <button type="button" class="popup__close" id="place-close-button" aria-label="Создать"></button>
+                <button type="button" class="popup__close" id="place-close-button" aria-label="Сохранить"></button>
             </form>
         </div>
 
@@ -80,13 +80,38 @@
             </div>
         </div>
 
+        <div class="popup" id="avatar-popup">
+            <form class="popup__container popup__container_form" name="edit-avatar-form" id="edit-avatar-form">
+                <h2 class="popup__heading">Обновить аватар</h2>
+                <fieldset class="popup__fields">
+                    <input type="url" class="popup__input" id="avatar-url" name="avatar-url" required minlength="2" placeholder="Ссылка на аватар">
+                    <span class="popup__error" id="avatar-url-error"></span>
+                    <input type="submit" class="popup__submit-button" value="Сохранить">
+                </fieldset>
+                <button type="button" class="popup__close" id="avatar-button" aria-label="Сохранить"></button>
+            </form>
+        </div>
+
+        <div class="popup" id="confirm-popup">
+            <form class="popup__container popup__container_form" name="confirm-form" id="confirm-form">
+                <h2 class="popup__heading">Вы уверены?</h2>
+                <fieldset class="popup__fields">
+                    <input type="submit" class="popup__submit-button" value="Сохранить">
+                </fieldset>
+                <button type="button" class="popup__close" id="confirm-button" aria-label="Да"></button>
+            </form>
+        </div>
+
         <template id="card-template">
             <li class="card">
                 <img src="шаблон" alt="шаблон" class="card__image">
                 <button type="button" class="card__delete-button" aria-label="Удалить"></button>
                 <div class="card__info">
                     <h2 class="card__title"></h2>
-                    <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
+                    <div class="card__like-block">
+                        <button type="button" class="card__like-button" aria-label="Мне нравится"></button>
+                        <p class="card__like-counter"></p>
+                    </div>
                 </div>
             </li>
         </template>

@@ -9,7 +9,7 @@ export default class PopupWithForm extends Popup {
     this._formElement = this._popup.querySelector(".popup__container_form");
   }
 
-  close(a) {
+  close() {
     this._formElement.reset();
     // const nameInput = document.querySelector("#profile-name"); // введенное имя
     // const jobInput = document.querySelector("#profile-subline"); // введенный род занятий
@@ -19,7 +19,7 @@ export default class PopupWithForm extends Popup {
     // jobInput.value = sublineField.textContent;
     // this._placeInput.value = "";
     // this._urlInput.value = "";
-    super.close(a);
+    super.close();
   }
 
   _getInputValues() {
