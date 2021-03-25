@@ -13,7 +13,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.getInitialCards: ' + err))
   }
 
   getMyInfo() {
@@ -25,7 +24,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.getMyInfo: ' + err))
   }
 
   updateAvatar(link) {
@@ -40,7 +38,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.updateAvatar: ' + err))
   }
 
   updateProfile(name, about) {
@@ -56,7 +53,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.updateProfile: ' + err))
   }
 
   postCard(item) {
@@ -72,7 +68,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.postCard: ' + err))
   }
 
   cardLike(cardId) {
@@ -84,7 +79,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.cardLike: ' + err))
   }
 
   cardDislike(cardId) {
@@ -96,7 +90,6 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.cardDislike: ' + err))
   }
 
   deleteCard(cardId) {
@@ -108,6 +101,5 @@ export default class Api {
         if (res.ok) {return res.json()}
         return Promise.reject(new Error(`Статус не ОК (${res.status})`))
         })
-      .catch(err => console.log('api.deleteCard: ' + err))
   }
 }

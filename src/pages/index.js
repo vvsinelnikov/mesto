@@ -1,5 +1,26 @@
 import '../pages/index.css';
-import {editProfileForm, nameInput, jobInput, editProfileButton, editAvatarForm, editAvatarButton, newPlaceForm, addCardButton, avatar, apiSettings} from "../utils/constants.js";
+import {
+  editProfileButton, 
+  editProfilePopupElement, 
+  editProfileForm, 
+  nameElement, 
+  infoElement, 
+  editAvatarButton, 
+  editAvatarPopupElement, 
+  editAvatarForm, 
+  avatarImage, 
+  addCardButton, 
+  addCardPopupElement, 
+  addCardForm, 
+  zoomPopupElement, 
+  confirmPopupElement, 
+  nameInput, 
+  jobInput, 
+  cardsContainerSelector, 
+  cardSelector, 
+  apiSettings
+  } from "../utils/constants.js";
+import renderLoading from "../utils/utils.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js"
@@ -13,88 +34,109 @@ import {validationSettings} from "../utils/validationSettings.js";
 
 const api = new Api(apiSettings);
 const urlValidator = new UrlValidator();
-const initialCardsList = new Section('.album__list'); // массив карточек
 
 // Отображение профиля
-const currentProfile = new UserInfo(".profile__name", ".profile__subline", ".profile__avatar");
+const currentProfile = new UserInfo(nameElement, infoElement, avatarImage);
 
 let myId = '';
-api.getMyInfo()
+const myInfo = api.getMyInfo()
   .then((res) => {
     myId = res._id; // кэшируем мой ID
-    currentProfile.setUserInfo(res.name, res.about);
-    currentProfile.setAvatar(res.avatar);
-  }); 
+    currentProfile.setUserInfo(res.name, res.about, res.avatar);
+    currentProfile.setAvatar(res.avatar)
+  })
+  .catch(err => console.log('api.getMyInfo ' + err))
 
 // Редактирование профиля
-const editProfile = new PopupWithForm("#edit-profile-popup", (evt, inputs) => {
+const editProfilePopup = new PopupWithForm(editProfilePopupElement, (evt, inputs) => {
   evt.preventDefault();
-  const popupSubmitButton = evt.target.querySelector(".popup__submit-button");
-  popupSubmitButton.value = 'Сохранение...';
+  renderLoading(evt.target, 'on');
   api.updateProfile(inputs['input-name'], inputs['input-subline'])
     .then(() => {
       currentProfile.setUserInfo(inputs['input-name'], inputs['input-subline'])
-      avatar.alt = inputs['input-name'];
+      avatarImage.alt = inputs['input-name'];
       document.title = inputs['input-name'];
-      editProfile.close();
-      popupSubmitButton.value = 'Сохранить';
+      editProfilePopup.close();
+      renderLoading(evt.target, 'reset');
     })
     .catch(err => console.log('api.updateProfile ' + err))
 });
-editProfile.setEventListeners();
+editProfilePopup.setEventListeners();
 editProfileButton.addEventListener("click", () => {
   const userData = currentProfile.getUserInfo();
   nameInput.value = userData.name; // улучшение UX
   jobInput.value = userData.info; // улучшение UX
-  editProfile.open();
+  editProfilePopup.open();
   editProfileFormValid.clearValidation();
 });
 
 // Редактирование аватара
-const editAvatar = new PopupWithForm("#avatar-popup", (evt, inputs) => {
+const editAvatarPopup = new PopupWithForm(editAvatarPopupElement, (evt, inputs) => {
   evt.preventDefault();
-  const popupSubmitButton = evt.target.querySelector(".popup__submit-button");
-  popupSubmitButton.value = 'Сохранение...';
+  renderLoading(evt.target, 'on');
   urlValidator.checkElement({link: inputs['avatar-url']})
     .then(api.updateAvatar(inputs['avatar-url']))
     .then(res => {
       currentProfile.setAvatar(res.link)
-      editAvatar.close()
-      popupSubmitButton.value = 'Сохранить'})
+      editAvatarPopup.close()
+      renderLoading(evt.target, 'reset')})
     .catch(err => alert(err))
 });
-editAvatar.setEventListeners();
+editAvatarPopup.setEventListeners();
 editAvatarButton.addEventListener("click", () => {
-  editAvatar.open();
+  editAvatarPopup.open();
   editProfileFormValid.clearValidation();
 });
 
 // **************************************************************************
 // Загрузка карточек
-const popupConfirm = new PopupConfirm('#confirm-popup');
-popupConfirm.setEventListeners()
+const confirmPopup = new PopupConfirm(confirmPopupElement);
+confirmPopup.setEventListeners()
+
+const initialCardsList = new Section(cardsContainerSelector, (item) => {
+  urlValidator.checkElement(item) // не загружаем карточки с битыми картинками
+  .then(item => createCard(item))
+  .then(item => initialCardsList.addItem(item))
+  .catch(err => console.log('initialCardsList ' + err))
+});
+
+const loadPromises = [myInfo, initialCardsList]
+Promise.all(loadPromises)
+  .then(() => api.getInitialCards())
+  .then(res => initialCardsList.renderElements(res.reverse()))
+  .catch(err => console.log('loadPromises ' + err))
 
 function createCard(item) {
-  const card = new Card(api, myId, item,
-    (name, link) => popupWithImage.open(name, link), // handleCardClick
-    cardElement => popupConfirm.open(cardElement, card.delete()) // handleDeleteClick
+  const card = new Card(api, myId, cardSelector, item,
+    // handleCardClick
+    (name, link) => zoomPopup.open(name, link), 
+    // handleLike
+    (element) => {
+      api.cardLike(item._id)
+      .then((res) => {
+        element.querySelector(".card__like-button").classList.add('card__like-button_liked');
+        element.querySelector(".card__like-counter").textContent = res.likes.length;
+      })
+      .catch(err => console.log('card.like ' + err))
+    },
+    // handleDislike
+    (element) => {
+      api.cardDislike(item._id)
+      .then((res) => {
+        element.querySelector(".card__like-button").classList.remove('card__like-button_liked');
+        if (res.likes.length == 0) {element.querySelector(".card__like-counter").textContent = ''}
+        else {element.querySelector(".card__like-counter").textContent = res.likes.length}
+      })
+      .catch(err => console.log('card.like ' + err))
+    },
+    // handleDeleteClick
+    cardElement => confirmPopup.open(cardElement, deleteCard(item)) 
   );
   return card.generateCard();
 }
 
-api.getInitialCards()
-  .then(res => res.forEach(item => loadCard(item)))
-  .catch(err => console.log('api.getInitialCards ' + err))
-
-function loadCard(item) {
-  urlValidator.checkElement(item) // не загружаем карточки с битыми картинками
-  .then(item => createCard(item))
-  .then(item => initialCardsList.addItem(item))
-  .catch(err => console.log('loadCard ' + err))
-};
-
 function publishCard(item, evt) {
-  evt.target.querySelector(".popup__submit-button").value = 'Сохранение...';
+  renderLoading(evt.target, 'on');
   return urlValidator.checkElement(item) // проверяем введенный URL
   .then(item => api.postCard(item))
   .then(item => createCard(item))
@@ -104,24 +146,29 @@ function publishCard(item, evt) {
   .catch(err => alert(err))
 };
 
+function deleteCard(item) {
+  return api.deleteCard(item._id)
+    .catch(err => console.log('card.delete ' + err))
+}
+
 // Добавление карточек
-const addCard = new PopupWithForm("#new-place-popup", (evt, inputs) => {
+const addCardPopup = new PopupWithForm(addCardPopupElement, (evt, inputs) => {
   evt.preventDefault();
   publishCard({name: inputs['place-name'], link: inputs['place-link'], likes: 0}, evt)
     .then(() => {
-      evt.target.querySelector(".popup__submit-button").value = 'Сохранение...';
-      addCard.close()});
+      renderLoading(evt.target, 'on')
+      addCardPopup.close()});
 });
-addCard.setEventListeners();
+addCardPopup.setEventListeners();
 addCardButton.addEventListener("click", function () {
-  addCard.open();
-  newPlaceFormValid.clearValidation();
+  addCardPopup.open();
+  addCardFormValid.clearValidation();
 });
 
 // **************************************************************************
 // Попап с фото
-const popupWithImage = new PopupWithImage("#zoom-popup");
-popupWithImage.setEventListeners();
+const zoomPopup = new PopupWithImage(zoomPopupElement);
+zoomPopup.setEventListeners();
 
 // Попап с подтверждением
 // const popupConfirm = new PopupWithForm("#confirm-popup");
@@ -133,5 +180,5 @@ editProfileFormValid.enableValidation();
 const editAvatarFormValid = new FormValidator(validationSettings, editAvatarForm);
 editAvatarFormValid.enableValidation();
 
-const newPlaceFormValid = new FormValidator(validationSettings, newPlaceForm);
-newPlaceFormValid.enableValidation();
+const addCardFormValid = new FormValidator(validationSettings, addCardForm);
+addCardFormValid.enableValidation();
