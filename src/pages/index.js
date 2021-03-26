@@ -20,7 +20,7 @@ import {
   cardSelector, 
   apiSettings
   } from "../utils/constants.js";
-import renderLoading from "../utils/utils.js";
+import {renderLoading} from "../utils/utils.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js"
@@ -57,8 +57,8 @@ const editProfilePopup = new PopupWithForm(editProfilePopupElement, (evt, inputs
       avatarImage.alt = inputs['input-name'];
       document.title = inputs['input-name'];
       editProfilePopup.close();
-      renderLoading(evt.target, 'reset');
     })
+    .finally(() => renderLoading(evt.target, 'reset'))
     .catch(err => console.log('api.updateProfile ' + err))
 });
 editProfilePopup.setEventListeners();
@@ -78,8 +78,8 @@ const editAvatarPopup = new PopupWithForm(editAvatarPopupElement, (evt, inputs) 
     .then(api.updateAvatar(inputs['avatar-url']))
     .then(res => {
       currentProfile.setAvatar(res.link)
-      editAvatarPopup.close()
-      renderLoading(evt.target, 'reset')})
+      editAvatarPopup.close()})
+    .finally(() => renderLoading(evt.target, 'reset'))
     .catch(err => alert(err))
 });
 editAvatarPopup.setEventListeners();
@@ -103,7 +103,16 @@ const initialCardsList = new Section(cardsContainerSelector, (item) => {
 const loadPromises = [myInfo, initialCardsList]
 Promise.all(loadPromises)
   .then(() => api.getInitialCards())
-  .then(res => initialCardsList.renderElements(res.reverse()))
+  .then(res => {
+    // const myCards = new Array
+    // res.forEach(element => {
+    //   if (element.owner._id == myId) {
+    //     myCards.push(element)
+    //     res.splice(res.indexOf(element), 1)
+    //   }
+    // });
+    // const cardsOrdered = res.concat(myCards)
+    initialCardsList.renderElements(res.reverse())})
   .catch(err => console.log('loadPromises ' + err))
 
 function createCard(item) {
@@ -111,26 +120,31 @@ function createCard(item) {
     // handleCardClick
     (name, link) => zoomPopup.open(name, link), 
     // handleLike
-    (element) => {
+    (element, cardObj) => {
       api.cardLike(item._id)
-      .then((res) => {
-        element.querySelector(".card__like-button").classList.add('card__like-button_liked');
-        element.querySelector(".card__like-counter").textContent = res.likes.length;
-      })
-      .catch(err => console.log('card.like ' + err))
+        .then((res) => {
+          element.querySelector(".card__like-button").classList.add('card__like-button_liked');
+          element.querySelector(".card__like-counter").textContent = res.likes.length;
+          cardObj.isliked = true;
+        })
+        .catch(err => console.log('cardLike ' + err))
     },
     // handleDislike
-    (element) => {
+    (element, cardObj) => {
       api.cardDislike(item._id)
-      .then((res) => {
-        element.querySelector(".card__like-button").classList.remove('card__like-button_liked');
-        if (res.likes.length == 0) {element.querySelector(".card__like-counter").textContent = ''}
-        else {element.querySelector(".card__like-counter").textContent = res.likes.length}
-      })
-      .catch(err => console.log('card.like ' + err))
+        .then((res) => {
+          element.querySelector(".card__like-button").classList.remove('card__like-button_liked');
+          if (res.likes.length == 0) {element.querySelector(".card__like-counter").textContent = ''}
+          else {element.querySelector(".card__like-counter").textContent = res.likes.length};
+          cardObj.isliked = false;
+        })
+        .catch(err => console.log('cardDislike ' + err))
     },
     // handleDeleteClick
-    cardElement => confirmPopup.open(cardElement, deleteCard(item)) 
+    element => confirmPopup.open(element, () => {
+      return api.deleteCard(item._id)
+        .catch(err => console.log('deleteCard ' + err))
+    })
   );
   return card.generateCard();
 }
@@ -140,24 +154,20 @@ function publishCard(item, evt) {
   return urlValidator.checkElement(item) // проверяем введенный URL
   .then(item => api.postCard(item))
   .then(item => createCard(item))
+  .catch(err => console.log(err))
   .then(item => {
     initialCardsList.addItem(item);
   })
   .catch(err => alert(err))
 };
 
-function deleteCard(item) {
-  return api.deleteCard(item._id)
-    .catch(err => console.log('card.delete ' + err))
-}
-
 // Добавление карточек
 const addCardPopup = new PopupWithForm(addCardPopupElement, (evt, inputs) => {
   evt.preventDefault();
   publishCard({name: inputs['place-name'], link: inputs['place-link'], likes: 0}, evt)
     .then(() => {
-      renderLoading(evt.target, 'on')
-      addCardPopup.close()});
+      addCardPopup.close()})
+    .finally(() => renderLoading(evt.target, 'reset'));
 });
 addCardPopup.setEventListeners();
 addCardButton.addEventListener("click", function () {
@@ -169,9 +179,6 @@ addCardButton.addEventListener("click", function () {
 // Попап с фото
 const zoomPopup = new PopupWithImage(zoomPopupElement);
 zoomPopup.setEventListeners();
-
-// Попап с подтверждением
-// const popupConfirm = new PopupWithForm("#confirm-popup");
 
 // Валидация форм
 const editProfileFormValid = new FormValidator(validationSettings, editProfileForm);

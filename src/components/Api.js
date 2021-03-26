@@ -1,3 +1,5 @@
+import {returnResult} from "../utils/utils.js";
+
 export default class Api {
   constructor(apiSettings) {
     this._baseUrl = apiSettings.baseUrl;
@@ -9,10 +11,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   getMyInfo() {
@@ -20,10 +19,7 @@ export default class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   updateAvatar(link) {
@@ -34,10 +30,7 @@ export default class Api {
         avatar: link,
       })
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   updateProfile(name, about) {
@@ -49,10 +42,7 @@ export default class Api {
         about: about
       })
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   postCard(item) {
@@ -64,10 +54,7 @@ export default class Api {
         link: item.link
       })
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   cardLike(cardId) {
@@ -75,10 +62,7 @@ export default class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   cardDislike(cardId) {
@@ -86,10 +70,7 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 
   deleteCard(cardId) {
@@ -97,9 +78,6 @@ export default class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(res => {
-        if (res.ok) {return res.json()}
-        return Promise.reject(new Error(`Статус не ОК (${res.status})`))
-        })
+      .then(res => returnResult(res))
   }
 }

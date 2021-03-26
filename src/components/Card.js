@@ -35,6 +35,7 @@ export default class Card {
         this._likeButton.classList.add('card__like-button_liked'); // поставить лайк, если я лайкал
       }
     }
+    this.isliked = this._cardObject.likes.find(card => card._id == this._myId)
     this._setEventListeners();
     if (this._cardObject.owner) {
       if (this._cardObject.owner._id !== this._myId) {this._deleteButton.remove()}; // удалить корзину с чужих карточек
@@ -44,12 +45,8 @@ export default class Card {
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {    
-      this._api.getInitialCards()
-        .then(res => {
-          const selectedCard = res.find(card => card._id == this._cardObject._id) // текущая карточка
-          if (selectedCard.likes.find(card => card._id == this._myId)) {this._handleDislike(this._element)} // если лайкнута мной
-          else {this._handleLike(this._element)}
-        })
+      if (this.isliked) {this._handleDislike(this._element, this)} // если лайкнута мной
+      else {this._handleLike(this._element, this)}
     });
     this._deleteButton.addEventListener("click", () =>
       this._handleDeleteClick(this._element)
