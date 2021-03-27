@@ -29,8 +29,11 @@ export default class Card {
     this._titleElement.textContent = this._cardObject.name;
     this._imageElement.src = this._cardObject.link;
     this._imageElement.alt = this._cardObject.name;
-    if (this._cardObject.likes.length > 0) {
-      this._likesCounter.textContent = this._cardObject.likes.length;
+
+    this.likesCount = this._cardObject.likes.length
+
+    if (this.likesCount > 0) {
+      this._likesCounter.textContent = this.likesCount;
       if (this._cardObject.likes.find(item => item._id == this._myId)) {
         this._likeButton.classList.add('card__like-button_liked'); // поставить лайк, если я лайкал
       }

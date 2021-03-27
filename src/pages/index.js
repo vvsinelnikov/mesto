@@ -20,7 +20,7 @@ import {
   cardSelector, 
   apiSettings
   } from "../utils/constants.js";
-import {renderLoading} from "../utils/utils.js";
+import {renderLoading, likeCard, dislikeCard} from "../utils/utils.js";
 import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js"
@@ -121,28 +121,30 @@ function createCard(item) {
     (name, link) => zoomPopup.open(name, link), 
     // handleLike
     (element, cardObj) => {
+      likeCard(element, cardObj)
       api.cardLike(item._id)
-        .then((res) => {
-          element.querySelector(".card__like-button").classList.add('card__like-button_liked');
-          element.querySelector(".card__like-counter").textContent = res.likes.length;
-          cardObj.isliked = true;
-        })
-        .catch(err => console.log('cardLike ' + err))
-    },
+        .catch(err => {
+          dislikeCard(element, cardObj);
+          console.log('cardLike ' + err)})
+        },
     // handleDislike
     (element, cardObj) => {
+      dislikeCard(element, cardObj)
       api.cardDislike(item._id)
-        .then((res) => {
-          element.querySelector(".card__like-button").classList.remove('card__like-button_liked');
-          if (res.likes.length == 0) {element.querySelector(".card__like-counter").textContent = ''}
-          else {element.querySelector(".card__like-counter").textContent = res.likes.length};
-          cardObj.isliked = false;
+        .catch(err => {
+          likeCard(element, cardObj);
+          console.log('cardDislike ' + err)
         })
-        .catch(err => console.log('cardDislike ' + err))
     },
     // handleDeleteClick
-    element => confirmPopup.open(element, () => {
-      return api.deleteCard(item._id)
+    element => confirmPopup.open(element, (confirmPopup) => {
+      renderLoading(confirmPopup._formElement, 'on');
+      api.deleteCard(item._id)
+        .then(() => {
+          confirmPopup._cardElement.remove()
+          confirmPopup.close()
+        })
+        .finally(() => renderLoading(confirmPopup._formElement, 'reset'))
         .catch(err => console.log('deleteCard ' + err))
     })
   );
@@ -152,13 +154,10 @@ function createCard(item) {
 function publishCard(item, evt) {
   renderLoading(evt.target, 'on');
   return urlValidator.checkElement(item) // проверяем введенный URL
-  .then(item => api.postCard(item))
+  .then(item => api.postCard(item)).catch(err => console.log(err))
   .then(item => createCard(item))
-  .catch(err => console.log(err))
-  .then(item => {
-    initialCardsList.addItem(item);
-  })
-  .catch(err => alert(err))
+  .then(item => initialCardsList.addItem(item))
+  .catch(err => alert(err));
 };
 
 // Добавление карточек
@@ -167,7 +166,8 @@ const addCardPopup = new PopupWithForm(addCardPopupElement, (evt, inputs) => {
   publishCard({name: inputs['place-name'], link: inputs['place-link'], likes: 0}, evt)
     .then(() => {
       addCardPopup.close()})
-    .finally(() => renderLoading(evt.target, 'reset'));
+    .finally(() => renderLoading(evt.target, 'reset'))
+    .catch(err => alert(err));
 });
 addCardPopup.setEventListeners();
 addCardButton.addEventListener("click", function () {
