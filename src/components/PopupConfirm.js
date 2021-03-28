@@ -1,5 +1,4 @@
 import Popup from "../components/Popup.js"
-import {renderLoading} from "../utils/utils.js"
 
 export default class PopupConfirm extends Popup {
   constructor(popupElement) {
@@ -19,8 +18,6 @@ export default class PopupConfirm extends Popup {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._deleteCardHandler(this)
-        // .then(this.close)
-        // .catch(err => console.log(err))
     });
   }
 }

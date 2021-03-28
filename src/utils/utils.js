@@ -22,6 +22,6 @@ export function dislikeCard(element, cardObj) {
     // if (res.likes.length == 0) {element.querySelector(".card__like-counter").textContent = ''}
     // else {element.querySelector(".card__like-counter").textContent = res.likes.length};
     if (cardObj.likesCount > 0) {element.querySelector(".card__like-counter").textContent = cardObj.likesCount}
-    else {element.querySelector(".card__like-counter").textContent = ''}
+    else {element.querySelector(".card__like-counter").textContent = ''};
     cardObj.isliked = false;
 }

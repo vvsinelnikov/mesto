@@ -58,8 +58,8 @@ const editProfilePopup = new PopupWithForm(editProfilePopupElement, (evt, inputs
       document.title = inputs['input-name'];
       editProfilePopup.close();
     })
-    .finally(() => renderLoading(evt.target, 'reset'))
     .catch(err => console.log('api.updateProfile ' + err))
+    .finally(() => renderLoading(evt.target, 'reset'));
 });
 editProfilePopup.setEventListeners();
 editProfileButton.addEventListener("click", () => {
@@ -79,8 +79,8 @@ const editAvatarPopup = new PopupWithForm(editAvatarPopupElement, (evt, inputs) 
     .then(res => {
       currentProfile.setAvatar(res.link)
       editAvatarPopup.close()})
-    .finally(() => renderLoading(evt.target, 'reset'))
     .catch(err => alert(err))
+    .finally(() => renderLoading(evt.target, 'reset'))
 });
 editAvatarPopup.setEventListeners();
 editAvatarButton.addEventListener("click", () => {
@@ -141,11 +141,11 @@ function createCard(item) {
       renderLoading(confirmPopup._formElement, 'on');
       api.deleteCard(item._id)
         .then(() => {
-          confirmPopup._cardElement.remove()
-          confirmPopup.close()
+          confirmPopup._cardElement.remove();
+          confirmPopup.close();
         })
-        .finally(() => renderLoading(confirmPopup._formElement, 'reset'))
         .catch(err => console.log('deleteCard ' + err))
+        .finally(() => renderLoading(confirmPopup._formElement, 'reset'));
     })
   );
   return card.generateCard();
@@ -166,8 +166,8 @@ const addCardPopup = new PopupWithForm(addCardPopupElement, (evt, inputs) => {
   publishCard({name: inputs['place-name'], link: inputs['place-link'], likes: 0}, evt)
     .then(() => {
       addCardPopup.close()})
-    .finally(() => renderLoading(evt.target, 'reset'))
-    .catch(err => alert(err));
+    .catch(err => alert(err))
+    .finally(() => renderLoading(evt.target, 'reset'));
 });
 addCardPopup.setEventListeners();
 addCardButton.addEventListener("click", function () {
